@@ -85,6 +85,40 @@ def geohash_box(s):
 
     return (centro_da_box, intervalo_lat, intervalo_long)
 
+def geohash_grid(s):
+
+    base = geohash_box(s)
+
+    precisao = len(s) 
+    centro = base[0]
+
+    lat_centro = centro[0]
+    long_centro = centro[1]
+
+    intervalo_lat = base[1]
+    intervalo_long = base[2]
+    
+    h = intervalo_lat[1] - intervalo_lat[0]
+    w = intervalo_long[1] - intervalo_long[0]
+    
+    norte = [(lat_centro + h), long_centro]
+    sul = [(lat_centro - h), long_centro]
+    leste = [lat_centro, (long_centro + w)]
+    oeste = [lat_centro, (long_centro - w)]
+    
+    nordeste = [(lat_centro + h), (long_centro + w)]
+    noroeste = [(lat_centro + h), (long_centro - w)]
+    sudeste = [(lat_centro - h), (long_centro + w)]
+    sudoeste = [(lat_centro - h), (long_centro - w)]
+
+    alvo = {"c": s, "n": geohash_encode(norte[0], norte[1], precisao), "s": geohash_encode(sul[0], sul[1], precisao), "e": geohash_encode(leste[0],leste[1], precisao), 
+            "w": geohash_encode(oeste[0], oeste[1], precisao), "ne": geohash_encode(nordeste[0], nordeste[1], precisao), "nw": geohash_encode(noroeste[0], noroeste[1],precisao),
+           "se": geohash_encode(sudeste[0], sudeste[1], precisao), "sw": geohash_encode(sudoeste[0], sudoeste[1], precisao)
+           }
+
+    return alvo 
+
+
 print("-19.869, -43.963")
 teste1  = geohash_encode(-19.869, -43.963, 8)
 print(teste1)
