@@ -14,13 +14,7 @@ def geohash_encode(lat,long,precisao):
     
     # dado uma latitude e longitude gero a string binária que codifica o geohash
     for _ in range(5*precisao): 
-        # verifico o tamanho do buffer
-        if(len(buffer) == 5):
-            x = int(buffer, 2)
-            geohash = geohash + alfa_b32[x]
-            buffer = ""
-
-
+        
         #construo os bits:
 
         #lat
@@ -42,11 +36,19 @@ def geohash_encode(lat,long,precisao):
             else:
                 buffer = buffer + "0"
                 intervalo_long = [intervalo_long[0], mi]
-        
+
+        # verifico o tamanho do buffer
+        if(len(buffer) == 5):
+            x = int(buffer, 2)
+            geohash = geohash + alfa_b32[x]
+            buffer = ""
+
+
         turno = not turno 
 
     return geohash
 
 teste  = geohash_encode(-19.869, -43.963, 8)
 print(teste)
+print(len(teste))
     
