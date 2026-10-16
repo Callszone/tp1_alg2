@@ -71,6 +71,43 @@ class compact_trie:
                 medio.filhos[resto[k:][0]] = novo_no_ao_quadrado
                 no_atual.filhos[primeira_letra] = medio
 
+    def dfs_coleta_tudo(self, no_atual: node_trie):
+        resultado = list(no_atual.entregadores)
+        
+        for filho in no_atual.filhos.values():
+            entregadores_do_filho = self.dfs_coleta_tudo(filho)
+            resultado.extend(entregadores_do_filho)
+
+        return resultado
+    
+    def buscar_prefixo(self, prefixo):
+        return self._buscar_recursivo(self.raiz, prefixo)
+
+    def _buscar_recursivo(self, no_atual:node_trie, resto):
+        # se meu prefixo foi completamente consumido
+        if(len(resto) == 0):
+            return self.dfs_coleta_tudo(no_atual)
+        
+        primeira_letra = resto[0]
+        # se minha primeira letra não aparecer nos filhos do nó, ele não pertence a subarvore
+        if(primeira_letra not in no_atual.filhos):
+            return []
+        else:
+            filho = no_atual.filhos[primeira_letra]
+            k = maior_prefixo_comum(filho.prefixo, resto)
+            
+            # prefixo buscado dentro do filho
+            if(k == len(resto)):
+                self.dfs_coleta_tudo(filho)
+            
+            # resta busca no resto do prefixo do filho 
+            elif(k == len(filho.prefixo)):
+                self._buscar_recursivo(filho, resto[k:])
+
+            # o casamento quebrou no meio do caminho
+            else:
+                return []
+            
 
 
 
