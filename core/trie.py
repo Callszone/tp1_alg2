@@ -98,11 +98,11 @@ class compact_trie:
             
             # prefixo buscado dentro do filho
             if(k == len(resto)):
-                self.dfs_coleta_tudo(filho)
+                return self.dfs_coleta_tudo(filho)
             
             # resta busca no resto do prefixo do filho 
             elif(k == len(filho.prefixo)):
-                self._buscar_recursivo(filho, resto[k:])
+                return self._buscar_recursivo(filho, resto[k:])
 
             # o casamento quebrou no meio do caminho
             else:
