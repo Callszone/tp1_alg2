@@ -3,6 +3,7 @@
 \contentsline {section}{\numberline {2}Decisões de Implementação}{2}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Indexação e Busca por Prefixo}{2}{subsection.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.1}geohash.py}{2}{subsubsection.2.1.1}%
-\contentsline {section}{\numberline {3}Decisões de Interface}{3}{section.3}%
-\contentsline {section}{\numberline {4}Seção Experimental}{3}{section.4}%
-\contentsline {section}{\numberline {5}Conclusões}{3}{section.5}%
+\contentsline {subsubsection}{\numberline {2.1.2}trie.py}{3}{subsubsection.2.1.2}%
+\contentsline {section}{\numberline {3}Decisões de Interface}{4}{section.3}%
+\contentsline {section}{\numberline {4}Seção Experimental}{4}{section.4}%
+\contentsline {section}{\numberline {5}Conclusões}{4}{section.5}%

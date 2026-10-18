@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1792293378.75611 "relatorio.tex" "relatorio.pdf" "relatorio" 1792293379.50676 0
+["pdflatex"] 1792338299.89141 "relatorio.tex" "relatorio.pdf" "relatorio" 1792338300.76772 0
   "/etc/texmf/web2c/texmf.cnf" 1792249433.26848 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1136768653 3584 402da0b29eafbad07963b1224b222f18 ""
@@ -22,6 +22,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel-portuges/brazil.ldf" 1625860693 6591 308dec8ccec5a8d302be8a046d473dd3 ""
@@ -92,10 +93,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1792249469.19388 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1792249508 8213307 cc52f871748d66c7875503e566ce7379 ""
-  "relatorio.aux" 1792293379.42487 1158 d866e924010771989c5debf88c50bb2f "pdflatex"
-  "relatorio.out" 1792293379.42487 1014 5c8ba4f4677f2ef5799af2705a9db481 "pdflatex"
-  "relatorio.tex" 1792293377.13899 5951 5c64cc8adbfb7e16f5e21b62edeba1ca ""
-  "relatorio.toc" 1792293379.43481 585 322d2603dd4d37c7b3a85bcfdb89ae4e "pdflatex"
+  "relatorio.aux" 1792338300.67142 1282 39ab73269fa1864ec09360a16072e449 "pdflatex"
+  "relatorio.out" 1792338300.67142 1116 ce58cb890db0a1ed021c0e8604cd888d "pdflatex"
+  "relatorio.tex" 1792338299.24195 8422 383b7e8652c868e974612eca3d1bc13a ""
+  "relatorio.toc" 1792338300.67142 668 ef69d827c253a58c76c216e3b3ed87ca "pdflatex"
   (generated)
   "relatorio.aux"
   "relatorio.log"

@@ -63,7 +63,7 @@ Esse arquivo tem como objetivo implementar a conversão de uma coordenada, dada 
 codificada em geohash. A primeira decisão de projeto diz respeito a escolha do alfabeto, que se optou pelo uso padrão sem os caracteres 'a', 'i', 'l' e 'o',
 adaptado de uma Base32. 
 
-Com isso em mente, podemos discutir o porquê da codificação do geohash funcionar. Isso ocorre pela função de conversão se comportar como uma \textit{z-function},
+Com isso em mente, podemos discutir o porquê da codificação do geohash funcionar. Isso ocorre pela função de conversão se comportar como uma \textit{z-order curve},
 ou seja uma função capaz de representar um espaço multidimensional em uma estrutura unidimensional, conservando a noção espacial entre os objetos por meio 
 da intercalação de suas representações em binário. 
 
@@ -79,11 +79,34 @@ Logo, explicado isso, podemos partir para a implementação de cada função:
   \item \textbf{geohash\_box:} função auxiliar para montarmos o grid necessário para tratar casos em que os entregadores se encontram nas bordas da área 
     definida pela precisão da procura. Para alcançarmos isso, convertemos uma determinada string, já em geohash, para sua representação binária. Depois,
     por blocos de 5 bits, depois fazemos o caminho inverso do que fizemos na função anterior: lemos os bits e segmentamos os intervalos, visando buscar 
-    o centro de massa da caixa de busca e intervalos de latitude e longitude que a definem.
-  \item \textbf{geohash\_grid:} 
-
-
+    o centro geométrico da \textit{bounding box} e intervalos de latitude e longitude que a definem.
+  \item \textbf{geohash\_grid:} dada a caixa criada na função anterior, podemos gerar uma matriz 3x3 capaz de condensar as proximidades de um ponto central, 
+    visando lidar com vizinhanças próximas em consultas que ficam em branches diferentes da trie, por conta de diferenças na codificação dos prefixos. Assim sendo,
+    essa função permite adquirir as células norte, sul, leste, oeste, nordeste, noroeste, sudeste e sudoeste de uma determinada célula codificada \textit{s}.
+    Para tal, tomamos o centro de massa gerado na função anterior e calculamos sua altura \textit{h}, dada pela diferença entre os delimitadores do intervalo 
+    de latitudes também gerado, e seu comprimento \textit{w}, dado pela diferença entre os delimitadores do intervalo de longitudes igualmente gerado pela função passada.
+    Os pontos cardinais são fruto da adição/subtração de \textit{w} e \textit{h} de maneiras diversas nas coordenadas do centro geométrico. 
 \end{enumerate}
+
+\subsubsection{trie.py}
+Neste arquivo, há a implementação da classe \textbf{node\_trie}, responsável por codificar um nó da árvore de prefixos, nela há o prefixo que representa sua subárvore,
+um dicionário de filhos que associa primeiro caractere do prefixo descendente com um objeto \textit{node\_trie}. Por fim, há também uma lista de entregadores associados ao nó,
+que por sua vez são codificados como um dicionário, que armazena seus \textit{id's}, e valores de latitude e longitude.
+
+No mais, há a implementação da classe \textbf{compact\_trie}, que representa um requisito do trabalho de tornar a estrutura de armazenagem de prefixos eficiente em consulta e em espaço.
+Nela, há métodos de inserção e busca de prefixo que serão explicados a seguir:
+\begin{enumerate}
+  \item \textbf{Inserção:} Ao inserir uma chave, determina-se o maior prefixo comum de comprimento $k$ entre a cadeia a ser inserida e o prefixo do nó filho correspondente.
+    Caso $k$ equivalha ao comprimento do prefixo do filho, prossegue-se a descida recursiva com o sufixo restante. Caso $k$ seja estritamente menor, ocorre a operação de \textit{split}:
+    cria-se um nó intermediário rotulado com o prefixo comum de tamanho $k$, o nó original é encurtado para conter apenas seu sufixo a partir de $k$ e conectado como filho do intermediário,
+    e o que restou da nova chave é alocado em uma nova folha ramificada. Esse mecanismo assegura a invariante da compactação da árvore.
+  \item \textbf{Busca de Prefixo:} A consulta por região recebe um prefixo de tamanho $m$. O algoritmo navega pelas arestas consumindo fatias correspondentes da chave.
+    Ao identificar o nó onde o prefixo $m$ é integralmente contemplado — etapa que consome tempo proporcional ao tamanho do prefixo, ou seja, $O(m)$ —, dispara-se uma busca em profundidade (\textit{DFS}) que visita estritamente a subárvore decorrente.
+    A coleta de todos os registros armazenados nas folhas dessa subárvore demanda tempo proporcional à quantidade $k$ de entregadores recuperados, totalizando a complexidade ótima de $O(m + k)$,
+    independente do número total de nós da árvore.
+
+\end{enumerate} 
+
 
 
 % =========================
