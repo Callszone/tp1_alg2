@@ -8,6 +8,8 @@
 \usepackage{subcaption}
 \usepackage{float} 
 \usepackage{caption}
+\usepackage{amsmath}
+\usepackage{xurl}
 
 % Configuração dos hyperlinks
 \hypersetup{
@@ -83,7 +85,7 @@ Logo, explicado isso, podemos partir para a implementação de cada função:
   \item \textbf{geohash\_grid:} dada a caixa criada na função anterior, podemos gerar uma matriz 3x3 capaz de condensar as proximidades de um ponto central, 
     visando lidar com vizinhanças próximas em consultas que ficam em branches diferentes da trie, por conta de diferenças na codificação dos prefixos. Assim sendo,
     essa função permite adquirir as células norte, sul, leste, oeste, nordeste, noroeste, sudeste e sudoeste de uma determinada célula codificada \textit{s}.
-    Para tal, tomamos o centro de massa gerado na função anterior e calculamos sua altura \textit{h}, dada pela diferença entre os delimitadores do intervalo 
+    Para tal, tomamos o centro geométrico gerado na função anterior e calculamos sua altura \textit{h}, dada pela diferença entre os delimitadores do intervalo 
     de latitudes também gerado, e seu comprimento \textit{w}, dado pela diferença entre os delimitadores do intervalo de longitudes igualmente gerado pela função passada.
     Os pontos cardinais são fruto da adição/subtração de \textit{w} e \textit{h} de maneiras diversas nas coordenadas do centro geométrico. 
 \end{enumerate}
@@ -104,10 +106,28 @@ Nela, há métodos de inserção e busca de prefixo que serão explicados a segu
     Ao identificar o nó onde o prefixo $m$ é integralmente contemplado — etapa que consome tempo proporcional ao tamanho do prefixo, ou seja, $O(m)$ —, dispara-se uma busca em profundidade (\textit{DFS}) que visita estritamente a subárvore decorrente.
     A coleta de todos os registros armazenados nas folhas dessa subárvore demanda tempo proporcional à quantidade $k$ de entregadores recuperados, totalizando a complexidade ótima de $O(m + k)$,
     independente do número total de nós da árvore.
-
 \end{enumerate} 
 
-
+\subsubsection{distance.py}
+Sabe-se que a aproximação euclidiana do espaço geoide de coordenadas introduz distorções desnecessárias para a implementação. Vide isso, foi adotada a \textbf{Fórmula de Haversine}. Considerando o raio médio volumétrico da Terra de $R \approx 6371 \text{km}$, 
+é calculada a distância no geoide com base nas diferenças angulares em radianos, chamadas $\Delta\text{lat}$ e $\Delta\text{long}$:
+\[
+  a = \sin^2\left(\frac{\Delta\text{lat}}{2}\right) + \cos(\text{lat}_1)\cos(\text{lat}_2)\sin^2\left(\frac{\Delta\text{long}}{2}\right)
+  \]
+  \[
+  d = 2 R \cdot \text{atan2}\left(\sqrt{a}, \sqrt{1-a}\right)
+  \]
+  \subsubsection{Pipeline de Consulta}
+  No arquivo \textbf{search\_engine.py}, é implementado o pipeline de consulta, que importa os métodos e funções previamente descritos.
+  \begin{enumerate}
+    \item \textbf{Seleção Dinâmica de Precisão:} A precisão do geohash de busca deve ser calibrada em função do raio $R$ solicitado na interface.
+      Utilizou-se os seguintes limiares: $R \le 0.6 \text{km}$, o que gera a maior precisão de 6; $R \le 5 \text{km}$, o que gera uma precisão intermediária para consultas municipais de 5;
+      caso contrário, usamos uma precisão geral 4 para consultas em grandes áreas.
+    \item \textbf{consultar\_entregadores:} O motor recebe as coordenadas do restaurante e o raio de atendimento, obtém os 9 prefixos adjacentes e consulta a Trie.
+      Os candidatos recuperados são desduplicados via conjunto de identificadores únicos. Em seguida, calcula-se a distância de Haversine de cada entregador até o
+      restaurante e estima-se o tempo de trânsito considerando uma velocidade média urbana ($v = 25\text{ km/h}$). Os registros são segregados entre \textbf{filtrados}
+      (distância $\le R$, ordenados crescentemente para alimentar a interface com os pinos de destaque e tabela) e \textbf{descartados} (distância $> R$).
+  \end{enumerate}
 
 % =========================
 % DECISÕES DE INTERFACE 
@@ -133,7 +153,9 @@ Nela, há métodos de inserção e busca de prefixo que serão explicados a segu
 \begin{thebibliography}{9}
  \bibitem{ref1} Especificação do Trabalho Prático 1 - Indexação Geoespacial e Geometria Computacional Híbrida, DCC/ICEx/UFMG.
  \bibitem{ref2} Renato Vimieiro. Algoritmos 2, Slides da disciplina.
- \bibitem{ref3} -adicionar referencias -  
+ \bibitem{ref3} WIKIPEDIA. \textit{Geohash}. Disponível em: \url{https://en.wikipedia.org/wiki/Geohash}. Acesso em: 17 out. 2026.
+ \bibitem{ref4} WIKIPEDIA. \textit{Z-order curve}. Disponível em: \url{https://en.wikipedia.org/wiki/Z-order_curve}. Acesso em: 17 out. 2026.
+ \bibitem{ref5} WIKIPEDIA. \textit{Haversine formula}. Disponível em: \url{https://en.wikipedia.org/wiki/Haversine_formula}. Acesso em: 17 out. 2026.
 \end{thebibliography}
 \newpage
 

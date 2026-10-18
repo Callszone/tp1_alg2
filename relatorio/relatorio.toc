@@ -4,6 +4,8 @@
 \contentsline {subsection}{\numberline {2.1}Indexação e Busca por Prefixo}{2}{subsection.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.1}geohash.py}{2}{subsubsection.2.1.1}%
 \contentsline {subsubsection}{\numberline {2.1.2}trie.py}{3}{subsubsection.2.1.2}%
-\contentsline {section}{\numberline {3}Decisões de Interface}{4}{section.3}%
-\contentsline {section}{\numberline {4}Seção Experimental}{4}{section.4}%
-\contentsline {section}{\numberline {5}Conclusões}{4}{section.5}%
+\contentsline {subsubsection}{\numberline {2.1.3}distance.py}{4}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Pipeline de Consulta}{4}{subsubsection.2.1.4}%
+\contentsline {section}{\numberline {3}Decisões de Interface}{5}{section.3}%
+\contentsline {section}{\numberline {4}Seção Experimental}{5}{section.4}%
+\contentsline {section}{\numberline {5}Conclusões}{5}{section.5}%
