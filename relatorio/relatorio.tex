@@ -1,0 +1,117 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float} 
+\usepackage{caption}
+
+% Configuração dos hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    pdftitle={Relatório TP1 - Estruturas de Dados},
+    pdfauthor={Cauã Neto Santos Pires},
+    pdfsubject={TP1 - Identificação de Objetos Oclusos}
+}
+
+\begin{document}
+
+% =========================
+% CAPA
+% =========================
+\begin{titlepage}
+    \centering
+    {\Large DCC207 - Algoritmos 2}\\[1.5cm]
+    {\Huge \textbf{Trabalho Prático 1}}\\[0.5cm]
+    {\LARGE Indexação Geoespacial e Geometria Computacional Híbrida}\\[2cm]
+    
+    \vfill
+    \textbf{Alunos:} \underline{Cauã Neto Santos Pires, Rafael Junqueira Baracat, Renato Vilela de Melo} \\[0.5cm]
+    \textbf{Matrícula:} \underline{2024005335, -matricularafael-, -matricularenato-} \\[3cm]
+    
+    {\large ICEx – UFMG \\ 2026/2}
+\end{titlepage}
+
+% =========================
+% SUMÁRIO
+% =========================
+\tableofcontents
+\newpage
+
+% =========================
+% INTRODUÇÃO
+% =========================
+\section{Introdução}
+Este trabalho tem como objetivo integrar aspectos de implementação da árvore de prefixos (Trie) aplicada à codificação do geohash.
+Para tal, foi implementado um motor de busca e monitoramento geoespacial híbrido para visualização e consulta de uma frota de entregadores na cidade de Belo Horizonte,
+de tal modo que possam ser identificados os entregadores mais próximos de um dado restaurante. A implementação foi feita usando somente Python e as estruturas de dados foram feitas
+com o mínimo de auxílio de bibliotecas externas, usos esses que serão justificados no tópico de decisões de implementação.
+
+% =========================
+% DECISÕES DE IMPLEMENTAÇÃO  
+% =========================
+\section{Decisões de Implementação}
+Nesta seção serão detalhadas as decisões de implementação da indexação e busca por prefixo e do simulador de geração de entregadores.
+\subsection{Indexação e Busca por Prefixo}
+\subsubsection{geohash.py}
+Esse arquivo tem como objetivo implementar a conversão de uma coordenada, dada em um par (latitude, longitude), para uma \textit{string} 
+codificada em geohash. A primeira decisão de projeto diz respeito a escolha do alfabeto, que se optou pelo uso padrão sem os caracteres 'a', 'i', 'l' e 'o',
+adaptado de uma Base32. 
+
+Com isso em mente, podemos discutir o porquê da codificação do geohash funcionar. Isso ocorre pela função de conversão se comportar como uma \textit{z-function},
+ou seja uma função capaz de representar um espaço multidimensional em uma estrutura unidimensional, conservando a noção espacial entre os objetos por meio 
+da intercalação de suas representações em binário. 
+
+Logo, explicado isso, podemos partir para a implementação de cada função:
+\begin{enumerate}
+  \item \textbf{geohash\_encode:} começa-se com os intervalos de latitude e longitude comuns do globo, (-90,90) e (-180,180), respectivamente,
+    e passamos a fazer uma busca binária de uma dimensão em cada uma das medidas de coordenadas, ou seja para uma dada média $\mu$ verificamos se 
+    a opção testada está à direita, cuja resposta codificamos com '1', ou à esquerda, cuja resposta codificamos com '0', da média estabelecida.
+    
+    Para mantermos a noção de localidade do geohash, fazemos essa codificação aos turnos, começando por longitude. Após isso, como cada caractere 
+    do alfabeto de codificação é de uma Base32, conseguimos codificá-los com 5 bits. Por isso, a cada 5 bits obtidos pela passagem alternada de 0's e 1's 
+    geramos um caractere. Ao final, devolvemos a string codificada completa.
+  \item \textbf{geohash\_box:} função auxiliar para montarmos o grid necessário para tratar casos em que os entregadores se encontram nas bordas da área 
+    definida pela precisão da procura. Para alcançarmos isso, convertemos uma determinada string, já em geohash, para sua representação binária. Depois,
+    por blocos de 5 bits, depois fazemos o caminho inverso do que fizemos na função anterior: lemos os bits e segmentamos os intervalos, visando buscar 
+    o centro de massa da caixa de busca e intervalos de latitude e longitude que a definem.
+  \item \textbf{geohash\_grid:} 
+
+
+\end{enumerate}
+
+
+% =========================
+% DECISÕES DE INTERFACE 
+% =========================
+\section{Decisões de Interface}
+
+% =========================
+% SEÇÃO EXPERIMENTAL 
+% =========================
+\section{Seção Experimental}
+
+% =========================
+% CONCLUSÕES
+% =========================
+\section{Conclusões}
+
+% =========================
+% BIBLIOGRAFIA
+% =========================
+
+% Referências em formato científico
+% Exemplo: 
+\begin{thebibliography}{9}
+ \bibitem{ref1} Especificação do Trabalho Prático 1 - Indexação Geoespacial e Geometria Computacional Híbrida, DCC/ICEx/UFMG.
+ \bibitem{ref2} Renato Vimieiro. Algoritmos 2, Slides da disciplina.
+ \bibitem{ref3} -adicionar referencias -  
+\end{thebibliography}
+\newpage
+
+\end{document}
