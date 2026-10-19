@@ -55,6 +55,27 @@ de tal modo que possam ser identificados os entregadores mais próximos de um da
 com o mínimo de auxílio de bibliotecas externas, usos esses que serão justificados no tópico de decisões de implementação.
 
 % =========================
+% COLETA DE DADOS 
+% =========================
+\section{Coleta de Dados}
+Nesta seção, detalharemos os procedimentos computacionais adotados para a obtenção, limpeza e tratamento dos dados essenciais ao funcionamento do sistema, divididos entre a geolocalização dos estabelecimentos e a modelagem da malha viária da cidade.
+
+\subsection{Coordenadas dos bares e restaurantes de BH}
+Para o trabalho prático, foi disponibilizada uma base de dados (\texttt{bares.csv}) contendo mais de 20 mil estabelecimentos da cidade de Belo Horizonte. Contudo, para a indexação e cálculo de distâncias, era imprescindível associar cada entrada às suas coordenadas geográficas. Esse enriquecimento de dados foi realizado em duas etapas complementares, utilizando recursos abertos da Prefeitura de Belo Horizonte (PBH). 
+
+É importante destacar que os dados espaciais fornecidos pela PBH utilizam o sistema de projeção plana SIRGAS 2000 UTM 23S (EPSG:31983). Para assegurar a padronização com o sistema global de posicionamento (WGS 84 - EPSG:4326), adotou-se a biblioteca \texttt{pyproj} para a conversão de todas as geometrias obtidas em valores padronizados de latitude e longitude.
+
+\subsubsection{Dataset de Atividade Econômica}
+O primeiro passo de enriquecimento consistiu no cruzamento dos dados originais com o dataset público de Atividades Econômicas da PBH. Através do \textit{script} \texttt{merge\_bares\_csv.py}, os endereços (logradouro e número) de ambas as bases tiveram seus caracteres padronizados nativamente via \texttt{Pandas} e foram submetidos a uma operação de \textit{merge} à esquerda. As coordenadas da PBH, fornecidas no formato \textit{Well-Known Text} (WKT), foram extraídas eficientemente por meio de expressões regulares (\textit{Regex}) e projetadas para WGS 84 de forma vetorizada, garantindo alto desempenho no processamento da base.
+
+\subsubsection{Requests pela API Geocoder}
+Para os estabelecimentos que não encontraram correspondência exata no cruzamento anterior, implementou-se uma rotina de requisições HTTP direcionadas à API Geocoder da PBH (\texttt{csv\_com\_api.py}). O algoritmo itera estritamente sobre os registros pendentes, codifica os endereços em URLs seguras e realiza consultas à API, respeitando um intervalo temporal entre as requisições para mitigar o risco de sobrecarga no servidor ou bloqueio de rede. Por fim, os dados recém-coletados foram acoplados ao arquivo principal por meio do método \texttt{combine\_first} da biblioteca \texttt{Pandas}, que atua preenchendo as lacunas (\textit{NaNs}) do \textit{dataframe} principal com os resultados da API, gerando assim o arquivo consolidado de coordenadas.
+
+\subsection{Grafo da malha viária de BH}
+Para simular a disposição dos entregadores no espaço urbano respeitando as regras de trânsito, fez-se necessário modelar a malha viária de Belo Horizonte. Utilizou-se a ferramenta \texttt{OSMnx} (por meio do \textit{script} \texttt{get\_graph\_bh.py}) para extrair um multidigrafo direcionado de vias automobilísticas a partir dos dados do \textit{OpenStreetMap}. 
+
+Ademais, para evitar comportamentos anômalos no roteamento — como entregadores presos em quarteirões murados, falhas de mapeamento ou vias exclusivas sem saída —, o \textit{script} \texttt{verificar\_conexo.py} fez uso da biblioteca \texttt{NetworkX} (biblioteca usada pelo \texttt{OSMnx} na manipulação de grafos) para filtrar a estrutura. O grafo resultante foi restrito à sua maior componente fortemente conexa.
+% =========================
 % DECISÕES DE IMPLEMENTAÇÃO  
 % =========================
 \section{Decisões de Implementação}
