@@ -34,7 +34,7 @@
     
     \vfill
     \textbf{Alunos:} \underline{Cauã Neto Santos Pires, Rafael Junqueira Baracat, Renato Vilela de Melo} \\[0.5cm]
-    \textbf{Matrícula:} \underline{2024005335, -matricularafael-, -matricularenato-} \\[3cm]
+    \textbf{Matrículas:} \underline{2024005335, -matricularafael-, 2024066016} \\[3cm]
     
     {\large ICEx – UFMG \\ 2026/2}
 \end{titlepage}
@@ -149,7 +149,24 @@ Sabe-se que a aproximação euclidiana do espaço geoide de coordenadas introduz
       restaurante e estima-se o tempo de trânsito considerando uma velocidade média urbana ($v = 25\text{ km/h}$). Os registros são segregados entre \textbf{filtrados}
       (distância $\le R$, ordenados crescentemente para alimentar a interface com os pinos de destaque e tabela) e \textbf{descartados} (distância $> R$).
   \end{enumerate}
+\subsection{Simulador de Geração de Entregadores}
+Para testar o sistema sob condições verossímeis, desenvolveu-se um gerador de dados sintéticos que, ao receber a quantidade $N$ desejada pelo usuário, cria e posiciona as coordenadas dos entregadores obedecendo a dois princípios matemáticos e geográficos, detalhados a seguir.
 
+\subsubsection{Distribuição Espacial Baseada em Demanda}
+Implementado no arquivo \texttt{random\_gen.py}, o algoritmo posiciona os entregadores em torno dos estabelecimentos para simular a ociosidade estratégica da frota. Para isso, sorteiam-se $N$ restaurantes como centros, sobre os quais se aplica uma distribuição Gaussiana via \texttt{NumPy}. 
+
+Para evitar distorções espaciais (visto que linhas de longitude convergem nos polos), a escala do ruído da longitude recebeu uma compensação baseada na secante da latitude média, garantindo uma dispersão estritamente radial:
+\[
+    \Delta\text{lon}_{\text{corrigido}} = \Delta\text{lon} \times \left(\frac{1}{\cos(\text{lat}_{\text{média}})}\right)
+\]
+A amplitude desse espalhamento é parametrizada dinamicamente com base na dispersão total dos restaurantes no mapa (\texttt{np.ptp}), assegurando coerência com a área urbana.
+
+\subsubsection{Restrição Viária e Realismo Geográfico}
+Para evitar que a distribuição matemática posicione entregadores em locais inacessíveis (como prédios ou corpos d'água), o \textit{script} \texttt{coord\_correction.py} projeta esses pontos gerados para as vias transitáveis mais próximas. 
+
+O algoritmo identifica a aresta viária mais próxima no grafo obtido e filtrado pelo \texttt{OSMnx} e extrai sua geometria (curvas originais ou retas modeladas entre nós). Em seguida, a função \texttt{nearest\_points} — importada da biblioteca \texttt{shapely}, que também integra o motor interno do OSMnx — calcula a projeção ortogonal do ponto matemático sobre a linha da rua. 
+
+Para otimizar o desempenho dessas operações complexas, que não possuem suporte nativo à paralelização de baixo nível, a função foi encapsulada globalmente com \texttt{np.vectorize}. Isso permite processar os $N$ entregadores diretamente como \textit{arrays}, eliminando \textit{loops} ineficientes na execução principal.
 % =========================
 % DECISÕES DE INTERFACE 
 % =========================
