@@ -69,7 +69,7 @@ class compact_trie:
                 novo_no_ao_quadrado = node_trie(resto[k:])
                 novo_no_ao_quadrado.entregadores.append(entregador)
                 medio.filhos[resto[k:][0]] = novo_no_ao_quadrado
-                no_atual.filhos[primeira_letra] = medio
+            no_atual.filhos[primeira_letra] = medio
 
     def dfs_coleta_tudo(self, no_atual: node_trie):
         resultado = list(no_atual.entregadores)
