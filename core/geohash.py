@@ -119,12 +119,5 @@ def geohash_grid(s):
     return alvo 
 
 
-print("-19.869, -43.963")
-teste1  = geohash_encode(-19.869, -43.963, 8)
-print(teste1)
-print(len(teste1))
-
-teste2 = geohash_box(teste1)
-print(teste2)
 
     
