@@ -10,6 +10,7 @@
 \usepackage{caption}
 \usepackage{amsmath}
 \usepackage{xurl}
+\graphicspath{{./images/}}
 
 % Configuração dos hyperlinks
 \hypersetup{
@@ -217,11 +218,45 @@ Em termos de visualização de resultado, Utilizando o componente dl.Map do Dash
 
 Ao lado (dash\_table.DataTable) cria uma tabela com colunas "ID", "Distância" e "Tempo Estimado", que os valores de todos os motoristas selecionados e os exibe.
 \section{Seção Experimental}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagem1.png}
+    \caption{Execução com 200 entregadores}
+    \label{fig:imagem1}
+\end{figure}
+Percebe-se que, para o número base de geração de entregadores, a frota é gerada rapidamente, com as métricas correspondentes. É notória a presença do contingente de entregadores aceitos 
+e rejeitados. Para além do círculo azul que delimita a área de procura.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagem2.png}
+    \caption{Execução com 4000 entregadores}
+    \label{fig:imagem2}
+\end{figure}
+Percebe-se uma nítida manutenção do tempo na geração da frota, e um bom desempenho para a resposta da Trie, o que é interessante dado ao aumento significativo da frota. Segue também as métricas correspondentes. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{imagem3.png}
+    \caption{Execução com aumento do raio de aceitação}
+    \label{fig:imagem3}
+\end{figure}
+Um aumento no raio de aceitação não impacta de maneira significativa no tempo de execução, sugerindo uma boa implementação das estruturas de consulta. 
+Além disso, verifica-se um aumento na quantidade de entregadores aceitos.
+
 
 % =========================
 % CONCLUSÕES
 % =========================
 \section{Conclusões}
+O presente trabalho cumpriu o seu objetivo de desenvolver um motor de busca e monitorização geoespacial híbrido para a visualização e consulta de uma frota de entregadores na cidade de Belo Horizonte. A integração da codificação em \textit{geohash} com uma árvore de prefixos (a classe \textit{compact\_trie}) revelou-se uma abordagem altamente eficiente para resolver o problema da indexação espacial com um mínimo de dependências externas.
+
+A robustez da simulação foi assegurada desde a fase de obtenção e tratamento dos dados, enriquecendo a base de mais de 20 mil estabelecimentos com coordenadas precisas da Prefeitura de Belo Horizonte. Adicionalmente, a modelação da malha viária real através das ferramentas \texttt{OSMnx} e \texttt{NetworkX} garantiu um elevado nível de realismo. Isto permitiu distribuir os entregadores de forma coerente com a procura e projetar as suas coordenadas estritamente para vias urbanas viáveis.
+
+No que concerne ao processamento de pesquisas, o sistema cumpriu os requisitos analíticos ao garantir uma complexidade ótima de $O(m + k)$ na procura pela árvore. A combinação desta estrutura com o cálculo de distâncias através da Fórmula de Haversine assegurou a filtragem imediata dos candidatos consoante o raio estipulado.
+
+Por fim, o desenvolvimento do \textit{front-end} materializou toda a lógica matemática de \textit{back-end} numa experiência de utilizador interativa. O recurso ao \textit{framework} Dash e à renderização vetorial do \textit{Dash-Leaflet} permitiu parametrizar a simulação dinamicamente, evidenciando de forma visual e clara os entregadores que cumprem ou não as restrições da área de alcance. Em suma, a implementação estruturada provou que a combinação rigorosa de geometria computacional e estruturas de dados otimizadas é capaz de solucionar problemas de logística espacial com precisão e fluidez.
 
 % =========================
 % BIBLIOGRAFIA
