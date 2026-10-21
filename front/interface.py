@@ -30,7 +30,8 @@ app.layout = html.Div(style={
             html.Label(html.B("Buscar Restaurante (Nome, Rua ou Bairro):")),
             dcc.Input(
                 id='input-busca', 
-                type='text', 
+                type='text',
+                debounce=True,
                 style={
                     'width': '100%', 'padding': '10px', 'marginBottom': '10px',
                     'backgroundColor': '#2A2A2A', # Fundo cinza escuro

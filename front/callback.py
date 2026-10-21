@@ -17,7 +17,7 @@ def registrar_callbacks(app, df_restaurantes):
         
         # Filtra restaurantes pela string atual
         filtro = df_restaurantes['NOME_EXIBICAO'].str.contains(termo_busca, case=False, na=False)
-        resultados = df_restaurantes[filtro]
+        resultados = df_restaurantes[filtro].head(50)
         
         # Retorna no formato demarcado
         return [{'label': nome, 'value': nome} for nome in resultados['NOME_EXIBICAO']]
