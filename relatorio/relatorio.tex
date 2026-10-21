@@ -170,9 +170,52 @@ O algoritmo identifica a aresta viária mais próxima no grafo obtido e filtrado
 % =========================
 \section{Decisões de Interface}
 
-% =========================
-% SEÇÃO EXPERIMENTAL 
-% =========================
+\subsection{\texttt{carregar\_base.py}}
+
+O módulo \texttt{carregar\_base.py} tem como função inicializar e carregar a base de dados em csv para conecta-la com a interface e seus mecanismos. As bibliotecas pathlib e pandas são empregadas, respectivamente, para definir o caminho do arquivo e carregar o csv.
+
+\subsection{\texttt{callback.py}}
+
+Este arquivo funciona como o controlador entre a interface disponível para o usuário e a matemática desenvolvida no back-end, por meio de funções callbacks, que detectam mudanças na interface, capturam e lançam dados.
+
+\subsubsection{\texttt{def registrar\_callbacks(app, df\_restaurantes)}}
+Esta é a função principal do módulo. Ela recebe a instância do aplicativo Dash e a base de dados de restaurantes como parâmetros. O seu papel é abrigar e registrar todos os eventos interativos (os callbacks) do sistema.
+
+\subsubsection{\texttt{def atualizar\_dropdown(termo\_busca)}}
+É a função responsável pela busca em tempo real do restaurante. Conforme o usuário digita no campo de texto, esta função recebe a palavra-chave e aplica um filtro na base de dados (df\_restaurantes). Ela utiliza funções Pandas para buscar ocorrências do texto e limita o retorno aos 50 primeiros resultados, devolvendo-os no formato adequado.
+
+\subsubsection{\texttt{def acao\_gerar\_frota(n\_clicks, n\_entregadores)}}
+Acionada pelo botão "Gerar", esta função inicia o ambiente simulado. Após as validações necessárias, ela chama a função gerar\_entregadores para distribuir os motoristas pela cidade. Esses motoristas então são distribuídos em uma árvore compact\_trie, que converte as coordenadas matemáticas de cada entregador em geohash e insere todos os registros na árvore. Esse estado é então salvo globalmente na memória (FROTA\_ATUAL). Por fim, ela cronometra o tempo de processamento e devolve uma visualização inicial, desenhando todos os entregadores no mapa como pequenos pontos cinzas neutros, aguardando a chamada de busca.
+
+\subsubsection{\texttt{def acao\_buscar\_entregadores()}}
+Este é o núcleo de consulta espacial, ativado pelo botão de "Buscar". Inicialmente, a função aplica travas de segurança para impedir a busca caso a frota ainda não tenha sido gerada ou nenhum restaurante tenha sido selecionado. Caso contrário, ela extrai as coordenadas exatas do estabelecimento e o raio de alcance desejado, e então dispara o motor de busca híbrido na árvore Trie alocada na memória.
+
+Após o algoritmo separar matematicamente os motoristas "aceitos" e "descartados", a função:
+\begin{itemize}
+    \item Posiciona um pino de destaque para o restaurante.
+    \item Desenha uma área sombreada azul no mapa representando o rigor do raio de busca.
+    \item Define marcadores vermelhos em destaque, com informações de distância e tempo, para os entregadores dentro da área de alcance.
+    \item Plota marcadores cinzas e opacos para os motoristas rejeitados.
+\end{itemize}
+Então calcula as médias de tempo e distância da frota viável e constrói um painel de métricas de desempenho.
+
+\subsection{\texttt{interface.py}}
+
+Responsável por estruturar a interface front-end em HTML e estabelecer a conexão entre com as funções essenciais por meio de callback. Cria, através de framework Dash, botões, caixas de texto, tabelas e insere o mapa na tela, assim como todas as marcações sobre ele.
+
+Faz uso das bibliotecas pathlib e sys para criar caminhos seguros entre os arquivos, evitando erros de pastas ao importar a base de dados.
+
+Inicializa o aplicativo Dash habilitando a supressão de exceções, útil para interfaces que mudam dinamicamente, e aplica um visual com tema escuro acompanhado do cabeçalho.
+
+Cria:
+\begin{itemize}
+    \item os blocos de busca (dcc.Input) e seleção (dcc.Dropdown) de restaurantes. Com debounce=True, a busca espera que o usuário termine de digitar para acionar a busca por meio do app. A busca, por sua vez, resulta em uma lista de restaurantes para a seleção exata. Uma barra deslizante interativa (dcc.Slider) que permite ao usuário definir visualmente o Raio de Atendimento e o botão azul "BUSCAR ENTREGADORES" (html.Button), que serve como gatilho para a árvore Trie e a geometria de busca.
+    \item Uma caixa numérica (dcc.Input) para definir o tamanho total da frota e o botão verde "GERAR NOVA FROTA" (html.Button), responsável por acionar a criação de coordenadas pelo código back-end.
+\end{itemize}
+
+Em termos de visualização de resultado, Utilizando o componente dl.Map do Dash-Leaflet, o código abre um mapa já centralizado em Belo Horizonte. deixando um container em branco (dl.LayerGroup) preparado para ser preenchido com pinos.
+
+Ao lado (dash\_table.DataTable) cria uma tabela com colunas "ID", "Distância" e "Tempo Estimado", que os valores de todos os motoristas selecionados e os exibe.
 \section{Seção Experimental}
 
 % =========================
@@ -191,7 +234,10 @@ O algoritmo identifica a aresta viária mais próxima no grafo obtido e filtrado
  \bibitem{ref2} Renato Vimieiro. Algoritmos 2, Slides da disciplina.
  \bibitem{ref3} WIKIPEDIA. \textit{Geohash}. Disponível em: \url{https://en.wikipedia.org/wiki/Geohash}. Acesso em: 17 out. 2026.
  \bibitem{ref4} WIKIPEDIA. \textit{Z-order curve}. Disponível em: \url{https://en.wikipedia.org/wiki/Z-order_curve}. Acesso em: 17 out. 2026.
- \bibitem{ref5} WIKIPEDIA. \textit{Haversine formula}. Disponível em: \url{https://en.wikipedia.org/wiki/Haversine_formula}. Acesso em: 17 out. 2026.
+ \bibitem{ref5} WIKIPEDIA. \textit{Haversine formula}. Disponível em: \url{https://en.wikipedia.org/wiki/Haversine_formula}. Acesso em: 17 out. 2026.\bibitem{ref6} PREFEITURA DE BELO HORIZONTE. \textit{Geocoder PBH}. Disponível em: \url{https://geocoder.pbh.gov.br/geocoder/}. Acesso em: 17 out. 2026.
+ \bibitem{ref7} PREFEITURA DE BELO HORIZONTE. \textit{Atividade Econômica - Portal de Dados Abertos da PBH}. Disponível em: \url{https://dados.pbh.gov.br/pt_BR/dataset/atividade-economica}. Acesso em: 17 out. 2026.
+ \bibitem{ref8} OSMNX. \textit{OSMnx User Reference}. Disponível em: \url{https://osmnx.readthedocs.io/en/stable/user-reference.html}. Acesso em: 18 out. 2026.
+ \bibitem{ref9} PLOTLY. \textit{Dash Python User Guide}. Disponível em: \url{https://dash.plotly.com/}. Acesso em: 18 out. 2026.
 \end{thebibliography}
 \newpage
 
