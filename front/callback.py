@@ -57,12 +57,11 @@ def registrar_callbacks(app, df_restaurantes):
         
         tempo = time.time() - t0
         
-        # Plota os entregadores gerados no mapa em tom neutro
+        # Plota os entregadores gerados no mapa 
         marcadores_iniciais = [
             dl.CircleMarker(
                 center=(lat, lon), 
-                color='#888', fillColor='#888', fillOpacity=0.5, radius=3,
-                children=[dl.Tooltip(f"Moto_{i+1}")]
+                color='#888', fillColor='#888', fillOpacity=0.5, radius=3
             )
             for i, (lat, lon) in enumerate(coords)
         ]
@@ -141,8 +140,7 @@ def registrar_callbacks(app, df_restaurantes):
             marcadores.append(
                 dl.CircleMarker(
                     center=(ent['lat'], ent['long']), 
-                    color='#757575', fillColor='#9E9E9E', fillOpacity=0.4, radius=3,
-                    children=[dl.Tooltip(f"{ent['id']} (Fora do Raio)")]
+                    color='#757575', fillColor='#9E9E9E', fillOpacity=0.4, radius=3
                 )
             )
 

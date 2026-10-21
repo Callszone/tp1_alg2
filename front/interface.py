@@ -49,7 +49,7 @@ app.layout = html.Div(style={
                     'borderRadius': '4px', 'boxSizing': 'border-box'
                 }
             ),
-
+            
             html.Label(html.B("Selecione na lista:")),
             dcc.Dropdown(
                 id='dropdown-restaurante',
@@ -58,7 +58,7 @@ app.layout = html.Div(style={
                 value=None,
                 style={'width': '100%', 'marginBottom': '15px', 'color': '#000'}
             ),
-
+            
             html.Label(html.B("Raio de Atendimento (km):")),
             dcc.Slider(
                 id='slider-raio',
@@ -107,12 +107,11 @@ app.layout = html.Div(style={
                 id='botao-gerar', 
                 n_clicks=0,
                 style={
-                    'width': '100%', 'padding': '14px', 
-                    'backgroundColor': '#4CAF50', 'color': 'white', 
+                    'width': '100%', 'padding': '14px',
+                    'backgroundColor': '#4CAF50', 'color': 'white',
                     'border': 'none', 'borderRadius': '4px', 'fontWeight': 'bold', 'cursor': 'pointer'
                 }
             ),
-
             html.Div(id='status-frota', style={'marginTop': '15px', 'color': '#81C784', 'fontSize': '14px'}),
             html.Div(id='metricas-resumo', style={'marginTop': '15px', 'color': '#B0BEC5', 'fontSize': '13px'})
         ])
@@ -127,6 +126,7 @@ app.layout = html.Div(style={
                 id='mapa-principal',
                 center=(-19.92, -43.93), 
                 zoom=12,
+                preferCanvas=True,
                 style={'width': '100%', 'height': '100%'},
                 children=[
                     dl.TileLayer(),
