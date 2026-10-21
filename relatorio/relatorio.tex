@@ -34,7 +34,7 @@
     
     \vfill
     \textbf{Alunos:} \underline{Cauã Neto Santos Pires, Rafael Junqueira Baracat, Renato Vilela de Melo} \\[0.5cm]
-    \textbf{Matrículas:} \underline{2024005335, -matricularafael-, 2024066016} \\[3cm]
+    \textbf{Matrículas:} \underline{2024005335, 2024066024, 2024066016} \\[3cm]
     
     {\large ICEx – UFMG \\ 2026/2}
 \end{titlepage}
@@ -178,16 +178,16 @@ O módulo \texttt{carregar\_base.py} tem como função inicializar e carregar a 
 
 Este arquivo funciona como o controlador entre a interface disponível para o usuário e a matemática desenvolvida no back-end, por meio de funções callbacks, que detectam mudanças na interface, capturam e lançam dados.
 
-\subsubsection{\texttt{def registrar\_callbacks(app, df\_restaurantes)}}
+\subsubsection{\texttt{registrar\_callbacks(app, df\_restaurantes)}}
 Esta é a função principal do módulo. Ela recebe a instância do aplicativo Dash e a base de dados de restaurantes como parâmetros. O seu papel é abrigar e registrar todos os eventos interativos (os callbacks) do sistema.
 
-\subsubsection{\texttt{def atualizar\_dropdown(termo\_busca)}}
+\subsubsection{\texttt{atualizar\_dropdown(termo\_busca)}}
 É a função responsável pela busca em tempo real do restaurante. Conforme o usuário digita no campo de texto, esta função recebe a palavra-chave e aplica um filtro na base de dados (df\_restaurantes). Ela utiliza funções Pandas para buscar ocorrências do texto e limita o retorno aos 50 primeiros resultados, devolvendo-os no formato adequado.
 
-\subsubsection{\texttt{def acao\_gerar\_frota(n\_clicks, n\_entregadores)}}
+\subsubsection{\texttt{acao\_gerar\_frota(n\_clicks, n\_entregadores)}}
 Acionada pelo botão "Gerar", esta função inicia o ambiente simulado. Após as validações necessárias, ela chama a função gerar\_entregadores para distribuir os motoristas pela cidade. Esses motoristas então são distribuídos em uma árvore compact\_trie, que converte as coordenadas matemáticas de cada entregador em geohash e insere todos os registros na árvore. Esse estado é então salvo globalmente na memória (FROTA\_ATUAL). Por fim, ela cronometra o tempo de processamento e devolve uma visualização inicial, desenhando todos os entregadores no mapa como pequenos pontos cinzas neutros, aguardando a chamada de busca.
 
-\subsubsection{\texttt{def acao\_buscar\_entregadores()}}
+\subsubsection{\texttt{acao\_buscar\_entregadores()}}
 Este é o núcleo de consulta espacial, ativado pelo botão de "Buscar". Inicialmente, a função aplica travas de segurança para impedir a busca caso a frota ainda não tenha sido gerada ou nenhum restaurante tenha sido selecionado. Caso contrário, ela extrai as coordenadas exatas do estabelecimento e o raio de alcance desejado, e então dispara o motor de busca híbrido na árvore Trie alocada na memória.
 
 Após o algoritmo separar matematicamente os motoristas "aceitos" e "descartados", a função:

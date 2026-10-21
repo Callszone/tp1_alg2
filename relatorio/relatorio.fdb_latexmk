@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1792549765.0939 "/home/renatoon/Documents/projects/ALG2/tp1/tp1_alg2/relatorio/relatorio.tex" "relatorio.pdf" "relatorio" 1792549765.51333 0
+["pdflatex"] 1792550235.45721 "/home/renatoon/Documents/projects/ALG2/tp1/tp1_alg2/relatorio/relatorio.tex" "relatorio.pdf" "relatorio" 1792550235.85635 0
   "/etc/texmf/web2c/texmf.cnf" 1786849223.73593 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/renatoon/Documents/projects/ALG2/tp1/tp1_alg2/relatorio/relatorio.tex" 1792549764.44669 21734 f18f60dd17c77004a218299c5dee0c4d ""
+  "/home/renatoon/Documents/projects/ALG2/tp1/tp1_alg2/relatorio/relatorio.tex" 1792550235.2211 21711 c4a8eeb80d8d06ac599ae3bc603af099 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1136768653 3584 402da0b29eafbad07963b1224b222f18 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1440.tfm" 1136768653 3584 13049b61b922a28b158a38aeff75ee9b ""
@@ -115,10 +115,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1741904018 41538 c016915c1d51223b6dbbfe27341748a8 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1792366433 5467255 9a64d1b40e0b893fc5588ecce9d8accf ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1792366478 3348057 b61d54aba1fcd304e67042b4a0f4df1d ""
-  "relatorio.aux" 1792549765.45874 3918 d638e231bae82bf240480ce8f873a6c6 "pdflatex"
-  "relatorio.out" 1792549765.45874 4791 2377fd22d8698b2181e8e1a3a1ba6b2a "pdflatex"
-  "relatorio.tex" 1792549764.44669 21734 f18f60dd17c77004a218299c5dee0c4d ""
-  "relatorio.toc" 1792549765.45874 2453 667a61b23e2a5280655e4ab603f781b3 "pdflatex"
+  "relatorio.aux" 1792550235.80512 3902 998aa38d75787010e44a8c27dde735e0 "pdflatex"
+  "relatorio.out" 1792550235.80912 4699 b15b1ff51b8f067fb70d6cc7a6f0a522 "pdflatex"
+  "relatorio.tex" 1792550235.2211 21711 c4a8eeb80d8d06ac599ae3bc603af099 ""
+  "relatorio.toc" 1792550235.80912 2437 802fe6a11b4c3f2d2fd76260d5ccd014 "pdflatex"
   (generated)
   "relatorio.aux"
   "relatorio.log"
