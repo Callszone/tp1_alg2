@@ -14,6 +14,6 @@
 \contentsline {subsection}{\numberline {3.2}Simulador de Geração de Entregadores}{6}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}Distribuição Espacial Baseada em Demanda}{7}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}Restrição Viária e Realismo Geográfico}{7}{subsubsection.3.2.2}%
-\contentsline {section}{\numberline {4}Decisões de Interface}{8}{section.4}%
-\contentsline {section}{\numberline {5}Seção Experimental}{8}{section.5}%
-\contentsline {section}{\numberline {6}Conclusões}{8}{section.6}%
+\contentsline {section}{\numberline {4}Decisões de Interface}{7}{section.4}%
+\contentsline {section}{\numberline {5}Seção Experimental}{7}{section.5}%
+\contentsline {section}{\numberline {6}Conclusões}{7}{section.6}%

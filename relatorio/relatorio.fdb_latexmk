@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1792371013.94764 "/home/renatoon/Documents/projects/ALG2/tp1/tp1_alg2/relatorio/relatorio.tex" "relatorio.pdf" "relatorio" 1792371014.32529 0
+["pdflatex"] 1792544345.58556 "/home/renatoon/Documents/projects/ALG2/tp1/tp1_alg2/relatorio/relatorio.tex" "relatorio.pdf" "relatorio" 1792544345.97533 0
   "/etc/texmf/web2c/texmf.cnf" 1786849223.73593 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/renatoon/Documents/projects/ALG2/tp1/tp1_alg2/relatorio/relatorio.tex" 1792371013.73567 16619 68f4846b176ef81d97a5e9ff619fbe16 ""
+  "/home/renatoon/Documents/projects/ALG2/tp1/tp1_alg2/relatorio/relatorio.tex" 1792544344.94919 16286 7d908e5c420df11058714ca1d9a5b1df ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1136768653 3584 402da0b29eafbad07963b1224b222f18 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1440.tfm" 1136768653 3584 13049b61b922a28b158a38aeff75ee9b ""
@@ -111,10 +111,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1741904018 41538 c016915c1d51223b6dbbfe27341748a8 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1792366433 5467255 9a64d1b40e0b893fc5588ecce9d8accf ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1792366478 3348057 b61d54aba1fcd304e67042b4a0f4df1d ""
-  "relatorio.aux" 1792371014.2797 2771 e4dab572b62ae88666d29b80be7cab90 "pdflatex"
-  "relatorio.out" 1792371014.2797 3295 170ba931ec5d3752bf949f0ccafde811 "pdflatex"
-  "relatorio.tex" 1792371013.73567 16619 68f4846b176ef81d97a5e9ff619fbe16 ""
-  "relatorio.toc" 1792371014.2797 1673 1f2bf205208bbb472bb72f17324f9e3f "pdflatex"
+  "relatorio.aux" 1792544345.92923 2771 8f90cbb01d2b10473c3a818458d66197 "pdflatex"
+  "relatorio.out" 1792544345.92923 3295 170ba931ec5d3752bf949f0ccafde811 "pdflatex"
+  "relatorio.tex" 1792544344.94919 16286 7d908e5c420df11058714ca1d9a5b1df ""
+  "relatorio.toc" 1792544345.92923 1673 c235965ae10317c8822f434427ab53b7 "pdflatex"
   (generated)
   "relatorio.aux"
   "relatorio.log"
