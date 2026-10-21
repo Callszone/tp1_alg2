@@ -9,7 +9,10 @@ Um que simula uma frota de entregadores e permite buscar os mais próximos de um
 ```
 (tp1_alg2)
 ├─ front/               # UI e layout da aplicação
+├─ data/               # dados para aplicação 
 ├─ core/                # algoritmo (Trie, Geohash, geração de coordenadas)
+├─ relatorio/               # relatório e descrição dos algoritmos 
+├─ services/               # conjunto de .csv 
 ├─ simulation/          # motor de consulta na Trie
 ├─ requirements.txt     # dependências Python
 └─ README.md            # este documento
