@@ -1,6 +1,5 @@
 import dash
 import sys
-import os
 from pathlib import Path
 
 # Adiciona o diretório raiz ao path

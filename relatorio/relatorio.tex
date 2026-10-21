@@ -165,8 +165,6 @@ A amplitude desse espalhamento é parametrizada dinamicamente com base na disper
 Para evitar que a distribuição matemática posicione entregadores em locais inacessíveis (como prédios ou corpos d'água), o \textit{script} \texttt{coord\_correction.py} projeta esses pontos gerados para as vias transitáveis mais próximas. 
 
 O algoritmo identifica a aresta viária mais próxima no grafo obtido e filtrado pelo \texttt{OSMnx} e extrai sua geometria (curvas originais ou retas modeladas entre nós). Em seguida, a função \texttt{nearest\_points} — importada da biblioteca \texttt{shapely}, que também integra o motor interno do OSMnx — calcula a projeção ortogonal do ponto matemático sobre a linha da rua. 
-
-Para otimizar o desempenho dessas operações complexas, que não possuem suporte nativo à paralelização de baixo nível, a função foi encapsulada globalmente com \texttt{np.vectorize}. Isso permite processar os $N$ entregadores diretamente como \textit{arrays}, eliminando \textit{loops} ineficientes na execução principal.
 % =========================
 % DECISÕES DE INTERFACE 
 % =========================
