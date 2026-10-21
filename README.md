@@ -1,18 +1,18 @@
 # Cheque Mat – TP1 Algoritmos 2
 
 ## O que é
-Um pequeno app em **Dash** que simula uma frota de entregadores e permite buscar os mais próximos de um restaurante escolhido. A busca usa uma Trie compacta baseada em *Geohash*, com seus resultados traduzidos em um mapa interativo. 
+Um que simula uma frota de entregadores e permite buscar os mais próximos de um restaurante escolhido. A busca usa uma Trie compacta baseada em *Geohash*, com seus resultados traduzidos em um mapa interativo. 
 
 ---
 
 ## Estrutura de pastas
 ```
 (tp1_alg2)
-├─ front/               # UI (Dash)
-│   ├─ interface.py     # layout da aplicação
-│   ├─ callback.py      # callbacks de gerar frota e buscar entregadores
-│   └─ carregar_base.py # leitura do CSV de restaurantes
+├─ front/               # UI e layout da aplicação
+├─ data/               # dados para aplicação 
 ├─ core/                # algoritmo (Trie, Geohash, geração de coordenadas)
+├─ relatorio/               # relatório e descrição dos algoritmos 
+├─ services/               # conjunto de .csv 
 ├─ simulation/          # motor de consulta na Trie
 ├─ requirements.txt     # dependências Python
 └─ README.md            # este documento
