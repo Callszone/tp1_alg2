@@ -39,11 +39,16 @@ def registrar_callbacks(app, df_restaurantes):
         prevent_initial_call=True
     )
     def acao_gerar_frota(n_clicks, n_entregadores):
-        if not n_entregadores or n_entregadores <= 0:
-            return "Informe uma quantidade válida de entregadores.", no_update, no_update, no_update
+        # converte para numero o campo de texto
+        try:
+            qtd_entregadores = int(n_entregadores)
+            if qtd_entregadores <= 0:
+                return "Informe uma quantidade maior que zero.", no_update, no_update, no_update
+        except (ValueError, TypeError):
+            return "Por favor, digite um número válido.", no_update, no_update, no_update
         
         t0 = time.time()
-        coords = gerar_entregadores(n_entregadores)
+        coords = gerar_entregadores(qtd_entregadores)
         
         arvore = compact_trie()
         for index, (lat, lon) in enumerate(coords):

@@ -91,9 +91,8 @@ app.layout = html.Div(style={
             html.Label(html.B("Quantidade de entregadores (N):")),
             dcc.Input(
                 id='input-n-entregadores', 
-                type='number', 
-                value=200, 
-                min=1, 
+                type='text', 
+                value=200,  
                 style={
                     'width': '100%', 'padding': '10px', 'marginBottom': '10px',
                     'backgroundColor': '#2A2A2A', 'color': '#FFF', 'border': '1px solid #555',
