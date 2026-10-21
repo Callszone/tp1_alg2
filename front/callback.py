@@ -67,7 +67,7 @@ def registrar_callbacks(app, df_restaurantes):
             for i, (lat, lon) in enumerate(coords)
         ]
         
-        status_msg = f"✓ Frota com {len(coords)} entregadores gerada em {tempo:.2f}s!"
+        status_msg = f" Frota com {len(coords)} entregadores gerada em {tempo:.2f}s"
         resumo_vazio = html.Div([
             html.B("Status: "), "Frota gerada. Selecione um restaurante e clique em Buscar."
         ])
@@ -87,11 +87,11 @@ def registrar_callbacks(app, df_restaurantes):
     )
     def acao_buscar_entregadores(n_clicks, restaurante_selecionado, raio_km):
         if FROTA_ATUAL["arvore"] is None:
-            aviso = html.Span("⚠️ Gere a frota de entregadores primeiro!", style={'color': '#FFB74D'})
+            aviso = html.Span(" Gere a frota de entregadores primeiro!", style={'color': '#FFB74D'})
             return no_update, no_update, no_update, aviso
 
         if not restaurante_selecionado:
-            aviso = html.Span("⚠️ Selecione um restaurante na lista!", style={'color': '#FFB74D'})
+            aviso = html.Span(" Selecione um restaurante na lista!", style={'color': '#FFB74D'})
             return no_update, no_update, no_update, aviso
 
         # Coordenadas do restaurante
@@ -100,7 +100,7 @@ def registrar_callbacks(app, df_restaurantes):
         long_rest = float(linha['LONGITUDE'])
         raio_busca = float(raio_km) if raio_km else 2.0
 
-        # Consulta ultra-rápida na Trie (O(m + k))
+        # Consulta 
         t_inicio = time.perf_counter()
         resultado = consultar_entregadores(lat_rest, long_rest, raio_busca, FROTA_ATUAL["arvore"])
         tempo_consulta_ms = (time.perf_counter() - t_inicio) * 1000
@@ -146,7 +146,7 @@ def registrar_callbacks(app, df_restaurantes):
                 )
             )
 
-        # 5. Métricas Resumo (Exigidas pelo trabalho)
+        # 5. Métricas Resumo 
         distancia_media = sum(e['distancia_km'] for e in aceitos) / len(aceitos) if aceitos else 0.0
         tempo_medio = sum(e['tempo_min'] for e in aceitos) / len(aceitos) if aceitos else 0.0
 

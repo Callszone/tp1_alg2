@@ -11,7 +11,6 @@ from dash import dcc, html, dash_table
 from front.carregar_base import df_restaurantes
 import dash_leaflet as dl
 
-# Inicializa o Dash
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
 # Define formatação da página
@@ -24,7 +23,7 @@ app.layout = html.Div(style={
 }, children=[
     
     # Cabeçalho
-    html.H1("Monitoramento Geoespacial de Entregadores - Belo Horizonte", style={'textAlign': 'center', 'marginBottom': '5px'}),
+    html.H1("Cheque Mat", style={'textAlign': 'center', 'marginBottom': '5px'}),
     html.P("TP1 - DCC207 Algoritmos 2 | DCC / UFMG", style={'textAlign': 'center', 'color': '#888', 'marginTop': '0'}),
     html.Hr(style={'borderColor': '#333'}),
 
