@@ -143,8 +143,15 @@ Sabe-se que a aproximação euclidiana do espaço geoide de coordenadas introduz
   No arquivo \textbf{search\_engine.py}, é implementado o pipeline de consulta, que importa os métodos e funções previamente descritos.
   \begin{enumerate}
     \item \textbf{Seleção Dinâmica de Precisão:} A precisão do geohash de busca deve ser calibrada em função do raio $R$ solicitado na interface.
-      Utilizou-se os seguintes limiares: $R \le 0.6 \text{km}$, o que gera a maior precisão de 6; $R \le 5 \text{km}$, o que gera uma precisão intermediária para consultas municipais de 5;
-      caso contrário, usamos uma precisão geral 4 para consultas em grandes áreas.
+      Cada nível de precisão corresponde a células de área aproximada bem definida: o nível~6 cobre células de
+      $\approx 1{,}2\,\text{km} \times 0{,}6\,\text{km}$; o nível~5 cobre
+      $\approx 4{,}9\,\text{km} \times 4{,}9\,\text{km}$; e o nível~4 cobre
+      $\approx 39\,\text{km} \times 20\,\text{km}$~. Com base nessas
+      dimensões, adotaram-se os seguintes limiares: para $R \le 0{,}6\,\text{km}$
+      usa-se precisão~6, garantindo que a célula seja menor que o raio e evitando
+      candidatos em excesso; para $R \le 5\,\text{km}$ usa-se precisão~5; para
+      raios maiores usa-se precisão~4.
+      Em todos os casos, as 8 células adjacentes são consultadas para eliminar o problema de borda do geohash.
     \item \textbf{consultar\_entregadores:} O motor recebe as coordenadas do restaurante e o raio de atendimento, obtém os 9 prefixos adjacentes e consulta a Trie.
       Os candidatos recuperados são desduplicados via conjunto de identificadores únicos. Em seguida, calcula-se a distância de Haversine de cada entregador até o
       restaurante e estima-se o tempo de trânsito considerando uma velocidade média urbana ($v = 25\text{ km/h}$). Os registros são segregados entre \textbf{filtrados}
@@ -218,33 +225,42 @@ Em termos de visualização de resultado, Utilizando o componente dl.Map do Dash
 
 Ao lado (dash\_table.DataTable) cria uma tabela com colunas "ID", "Distância" e "Tempo Estimado", que os valores de todos os motoristas selecionados e os exibe.
 \section{Seção Experimental}
+As consultas a seguir foram realizadas sobre a base de restaurantes de Belo Horizonte,
+variando o tamanho da frota e o raio de atendimento. Os tempos de resposta registrados
+referem-se à etapa de consulta na Trie e filtragem geométrica e o tempo de geração da frota.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{imagem1.png}
     \caption{Execução com 200 entregadores}
     \label{fig:imagem1}
 \end{figure}
-Percebe-se que, para o número base de geração de entregadores, a frota é gerada rapidamente, com as métricas correspondentes. É notória a presença do contingente de entregadores aceitos 
-e rejeitados. Para além do círculo azul que delimita a área de procura.
-
+Na consulta da Figura~\ref{fig:imagem1}, com uma frota de 200 entregadores e raio de
+2\,km, o tempo de resposta da busca foi de 1.17\,ms, retornando 23 entregadores
+aceitos e 95 descartados, dos 188 candidatos já filtrados pela Trie. A geração da frota, que inclui a projeção para vias,
+levou aproximadamente 1.57\,s.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{imagem2.png}
     \caption{Execução com 4000 entregadores}
     \label{fig:imagem2}
 \end{figure}
-Percebe-se uma nítida manutenção do tempo na geração da frota, e um bom desempenho para a resposta da Trie, o que é interessante dado ao aumento significativo da frota. Segue também as métricas correspondentes. 
-
+Com o aumento da frota para 4000 entregadores (Figura~\ref{fig:imagem2}), mantendo
+o mesmo raio de 2\,km, o tempo de resposta da busca foi de 25.44\,ms — valor
+maior que o da consulta anterior, evidenciando que a complexidade da busca na
+Trie é dominada pelo prefixo $m$ e pela quantidade de candidatos $k$ retornados,
+e não pelo total de entregadores indexados.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{imagem3.png}
-    \caption{Execução com aumento do raio de aceitação}
+    \caption{Execução com aumento do raio de aceitação e 1000 entregadores}
     \label{fig:imagem3}
 \end{figure}
-Um aumento no raio de aceitação não impacta de maneira significativa no tempo de execução, sugerindo uma boa implementação das estruturas de consulta. 
-Além disso, verifica-se um aumento na quantidade de entregadores aceitos.
-
+Ao ampliar o raio de atendimento (Figura~\ref{fig:imagem3}), o tempo de resposta
+se estabeleceu em 2.01\,ms, com aumento proporcional no número de entregadores
+aceitos. O impacto no tempo de consulta é mínimo pois a seleção de precisão dinâmica
+do geohash adapta o prefixo de busca ao raio solicitado, mantendo o volume de
+candidatos recuperados da Trie controlado.
 
 % =========================
 % CONCLUSÕES

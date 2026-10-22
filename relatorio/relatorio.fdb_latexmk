@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1792551482.45651 "relatorio.tex" "relatorio.pdf" "relatorio" 1792551483.69103 0
+["pdflatex"] 1792629463.79431 "relatorio.tex" "relatorio.pdf" "relatorio" 1792629465.30515 0
   "/etc/texmf/web2c/texmf.cnf" 1792249433.26848 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1136768653 3584 402da0b29eafbad07963b1224b222f18 ""
@@ -118,10 +118,10 @@
   "images/imagem1.png" 1792550523.09306 781880 4bb6fba8029a2e9a69ed882bd2a3a4df ""
   "images/imagem2.png" 1792550566.11496 736379 49497cc13279fe5c874ebad62389f113 ""
   "images/imagem3.png" 1792550581.43027 753677 8e0b8c9cb3a04b4cc6f26ddb243f96aa ""
-  "relatorio.aux" 1792551483.60372 4666 8385cdae48358281c58332434c401336 "pdflatex"
-  "relatorio.out" 1792551483.60372 4699 b15b1ff51b8f067fb70d6cc7a6f0a522 "pdflatex"
-  "relatorio.tex" 1792551480.55745 24907 f42c67016a9c464b9d088fa088eabb20 ""
-  "relatorio.toc" 1792551483.60372 2437 efa7e3dd726be3447494346baac05c3d "pdflatex"
+  "relatorio.aux" 1792629465.17363 4706 dc85a32978702ed9930c850e324caa48 "pdflatex"
+  "relatorio.out" 1792629465.17363 4699 b15b1ff51b8f067fb70d6cc7a6f0a522 "pdflatex"
+  "relatorio.tex" 1792629462.44824 25994 3997c01a3b1bd686776e750fbecf0863 ""
+  "relatorio.toc" 1792629465.17363 2437 e802e9a5bafa88bc97f489ae7bd0c956 "pdflatex"
   (generated)
   "relatorio.aux"
   "relatorio.log"
